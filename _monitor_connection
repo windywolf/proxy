@@ -1,13 +1,9 @@
 # A background thread which is used to monitor proxy connection
 function _monitor_connection() {
-    pidfile=$1
-    if [ -e $pidfile ]; then
-        # Find out if there's already a monitor thread available.
-        oldpid=`ps ax -o pid | grep $pidfile`
-        [ $? -eq 0 ] && return 0        
-    fi
-    trap '' SIGHUP
-    echo $$ > $pidfile
+    # Make current process a daemon-like process
+    exec 1>/dev/null
+    exec 2>/dev/null
+    trap " " SIGHUP
     # Will query the status of connection every 60 seconds
     # TODO: Is 60 seconds too short? Shall we put it into config file as well?
     while (/usr/bin/true) {

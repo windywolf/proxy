@@ -1,5 +1,5 @@
 # Check & update statusfile
-# TODO: Shall we work out a new IPC solution instead of file?
+# TODO: Shall we work out a new IPC solution instead of file? => Use env var!
 function update_statusfile() {
     # 1. load statusfile's content
     latest_status=" "

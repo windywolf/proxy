@@ -1,0 +1,4 @@
+proxy_server=<x.x.x.x>
+user_name=<You User Name>
+password=<Your Password>
+local_port=<The local port you want to use>

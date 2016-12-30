@@ -45,8 +45,8 @@ function connect_proxy() {
         return 0
     fi
     # 2. Connect to proxy
-    echo "Connecting to proxy server..."
-    expect $proxy_execpath/connect_to_server.exp $proxy_proxy_server $proxy_user_name $proxy_password $proxy_local_port &
+    echo "Connecting to proxy server..i" > /dev/null
+    expect $proxy_execpath/connect_to_server.exp $proxy_proxy_server $proxy_user_name $proxy_password $proxy_local_port > /dev/null &
 
     return 0
 }
@@ -87,3 +87,4 @@ function stop_monitor_connection() {
 }
 
 read_proxy_config
+start_monitor_connection

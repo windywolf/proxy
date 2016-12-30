@@ -1,5 +1,5 @@
 # Check & update statusfile
-# TODO: Shall we work out a new IPC solution instead of file? => Use env var!
+# TODO: Shall we work out a new IPC solution instead of file?
 function update_statusfile() {
     # 1. load statusfile's content
     latest_status=" "
@@ -12,15 +12,14 @@ function update_statusfile() {
 function _check_connection() {
     # 1. Check if we are physically connecting to the proxy.
     cmd="set timeout 2; spawn telnet ${proxy_proxy_server} 22; expect \"Connection refused\" {exit 1} -re \"Escape\" {exit 0}; exit 1"
-    echo $cmd
-    expect -c ${cmd}
+    expect -c ${cmd} > /dev/null
     if [ $? -ne 0 ]; then
         # Physically disconnected
         update_statusfile "Disconnected"
         return 127
     fi
     # 2. Check if the proxy's connected
-    netstat -an | grep "${proxy_proxy_server}\.22.*ESTABLISHED"
+    netstat -an | grep "${proxy_proxy_server}\.22.*ESTABLISHED" > /dev/null
     if [ $? -ne 0 ]; then
         update_statusfile "Disconnected"
         return 1

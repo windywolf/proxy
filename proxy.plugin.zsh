@@ -6,6 +6,7 @@ proxy_configured="False"
 proxy_execpath=$ZSH_CUSTOM"/plugins/proxy"
 proxy_statusfile=${TMPDIR}status.tmp
 proxy_pidfile=${TMPDIR}omz_proxy.pid
+proxy_mux_uds="${HOME}/.ssh/proxy.sock"
 
 autoload _check_connection
 autoload _monitor_connection
@@ -45,8 +46,8 @@ function connect_proxy() {
         return 0
     fi
     # 2. Connect to proxy
-    echo "Connecting to proxy server..i" > /dev/null
-    expect $proxy_execpath/connect_to_server.exp $proxy_proxy_server $proxy_user_name $proxy_password $proxy_local_port > /dev/null &
+    echo "Connecting to proxy server.." > /dev/null
+    expect $proxy_execpath/connect_to_server.exp $proxy_proxy_server $proxy_user_name $proxy_password $proxy_local_port $proxy_mux_uds > /dev/null &
 
     return 0
 }

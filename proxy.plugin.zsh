@@ -14,6 +14,7 @@ autoload _monitor_connection
 
 # Fetch proxy info from configuration file - proxy.coif
 # TODO: Shall we check the content of each variable?
+# TODO: Shall we support multiple proxies? And make user be able to switch among all proxies?
 function read_proxy_config() {
     if [ ! -e $proxy_execpath/proxy.conf ]; then
         echo "Please config proxy.conf in ${proxy_execpath} first!"

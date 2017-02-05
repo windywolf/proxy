@@ -5,9 +5,10 @@ set host        [lindex $argv 0]
 set username    [lindex $argv 1]
 set password    [lindex $argv 2]
 set localport   [lindex $argv 3]
-set mux_sock    [lindex $argv 4]
+set remoteport  [lindex $argv 4]
+set mux_sock    [lindex $argv 5]
 
-spawn ssh -N -D $localport -o "ControlMaster=yes" -o "ControlPath=$mux_sock" -o "ControlPersist=yes" $username@$host
+spawn ssh -N -D $localport -p $remoteport -o "ControlMaster=yes" -o "ControlPath=$mux_sock" -o "ControlPersist=yes" $username@$host
 expect {
     "Connection refused" {exit 1}
     "Name or service not known" {exit 2}

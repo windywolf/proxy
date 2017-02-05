@@ -2,11 +2,13 @@ proxy_proxy_server=""
 proxy_user_name=""
 proxy_password=""
 proxy_local_port=""
+proxy_remote_port=""
 proxy_configured="False"
 proxy_execpath=$ZSH_CUSTOM"/plugins/proxy"
 proxy_statusfile=${TMPDIR}status.tmp
 proxy_pidfile=${TMPDIR}omz_proxy.pid
 proxy_mux_uds="${HOME}/.ssh/proxy.sock"
+proxy_debug_output=""
 
 autoload _check_connection
 autoload _monitor_connection
@@ -23,6 +25,8 @@ function read_proxy_config() {
     proxy_user_name=`sed -n "s/user_name=//p" $proxy_execpath/proxy.conf`
     proxy_password=`sed -n "s/password=//p" $proxy_execpath/proxy.conf`
     proxy_local_port=`sed -n "s/local_port=//p" $proxy_execpath/proxy.conf`
+    proxy_remote_port=`sed -n "s/remote_port=//p" $proxy_execpath/proxy.conf`
+    debug_switch=`sed -n "s/debug=//p" $proxy_execpath/proxy.conf`
 
     proxy_configured="True"
 }
@@ -46,8 +50,8 @@ function connect_proxy() {
         return 0
     fi
     # 2. Connect to proxy
-    echo "Connecting to proxy server.." > /dev/null
-    expect $proxy_execpath/connect_to_server.exp $proxy_proxy_server $proxy_user_name $proxy_password $proxy_local_port $proxy_mux_uds > /dev/null &
+    echo "Connecting to proxy server.." >/dev/null
+    expect $proxy_execpath/connect_to_server.exp $proxy_proxy_server $proxy_user_name $proxy_password $proxy_local_port $proxy_remote_port $proxy_mux_uds >/dev/null & 
 
     return 0
 }

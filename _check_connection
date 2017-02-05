@@ -21,7 +21,7 @@ function set_sockv5_proxy() {
 # Check if the connection to proxy is still available
 function _check_connection() {
     # 1. Check if we are physically connecting to the proxy.
-    cmd="set timeout 2; spawn telnet ${proxy_proxy_server} ${proxy_remote_port}; expect \"Connection refused\" {exit 1} -re \"Escape\" {exit 0}; exit 1"
+    cmd="set timeout 5; spawn telnet ${proxy_proxy_server} ${proxy_remote_port}; expect \"Connection refused\" {exit 1} -re \"Escape\" {exit 0}; exit 1"
     expect -c ${cmd} >/dev/null
     if [ $? -ne 0 ]; then
         # Physically disconnected

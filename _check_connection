@@ -37,6 +37,12 @@ function _check_connection() {
         [ -e ${proxy_mux_uds} ] && unlink $proxy_mux_uds
         return 1
     fi
+    # 3. Check if the unix domain socket exists
+    if [ ! -e $proxy_mux_uds ]; then
+        update_statusfile "Disconnected"
+        set_sockv5_proxy 0
+        return 2
+    fi
 
     update_statusfile "Connected"
     set_sockv5_proxy 1

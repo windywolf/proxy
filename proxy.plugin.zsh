@@ -115,10 +115,9 @@ function disconnect_proxy() {
 function check_connection() {
     _check_connection
     ret=$?
-    if [ $ret -eq 0 ]; then
-        echo "Proxy connected: $proxy_config"
-        echo "Address: $proxy_proxy_server"
-    fi
+    echo "Proxy:    $proxy_config"
+    echo "Address:  $proxy_proxy_server"
+    echo "Status:   `cat $proxy_statusfile`"
     return $ret
 }
 

@@ -58,6 +58,7 @@ function connect_proxy() {
     if [ $proxy_config != $config ]; then
         # 1.0 Stop monitor process and disconnect the old connection
         stop_monitor_connection
+        disconnect_proxy
         # 1.1 Re-load the configuration
         proxy_configured="False"
         read_proxy_config $config

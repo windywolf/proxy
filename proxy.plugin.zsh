@@ -152,6 +152,18 @@ function stop_monitor_connection() {
     return 0
 }
 
+# Set up proxy into git configuration.
+function set_proxy_for_git() {
+    git config --global http.proxy "socks5://localhost:"$local_port
+    git config --global https.proxy "socks5://localhost:"$local_port
+}
+
+# Unset git's proxy configuration
+function unset_proxy_for_git() {
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+}
+
 if [ -e $proxy_cur_config ]; then
     read_proxy_config `cat $proxy_cur_config`
 else

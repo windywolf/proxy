@@ -14,7 +14,7 @@ proxy_mux_uds="${HOME}/.ssh/proxy.sock"
 autoload _check_connection
 autoload _monitor_connection
 
-# Fetch proxy info from configuration file - proxy.coif
+# Fetch proxy info from configuration file - proxy.conf
 # TODO: Shall we check the content of each variable?
 function read_proxy_config() {
     if [ ! -e $proxy_execpath/proxy.conf ]; then
